@@ -26,13 +26,13 @@ module program_1_tb();
 		end
 
 		// Initialize first message to the example given in the word document
-		dut.dm1.core[0] = 8'b00000101;
-		dut.dm1.core[1] = 8'b01010101;
+		dut.dm1.core[1] = 8'b00000101;
+		dut.dm1.core[0] = 8'b01010101;
 
 		// Initialize rest of the messages as random
 		for (int i = 2; i < 30; i = i + 2) begin
-			dut.dm1.core[i] = $urandom_range(0, 7);
-			dut.dm1.core[i + 1] = $urandom_range(0, 255);
+			dut.dm1.core[i+1] = $urandom_range(0, 7);
+			dut.dm1.core[i] = $urandom_range(0, 255);
 		end
 
 		// Print input data [0:29]
