@@ -7,36 +7,39 @@ module alu(
 always_comb begin : alu_logic
 	// Local variables for the ALU that hopefully organize things a bit
 	logic[7:0]    emsw_result, elsw_result, dmsw_result, dlsw_result, xp4_result, xp2_result, xp1_result;
+	logic[15:0] message;
+	
+	message = {acc_in, val_in};
 
-	emsw_result[7:1] = {acc_in, val_in}[10:4];
+	emsw_result[7:1] = message[10:4];
 	emsw_result[0]   = 'b0;
 
 	elsw_result[7:5] = val_in[3:1];
 	elsw_result[4:0] = 'b0;
 
 	dmsw_result[7:3] = 'b0;
-	dmsw_result[2:0] = {acc_in, val_in}[15:13];
+	dmsw_result[2:0] = message[15:13];
 
-	dlsw_result[7:4] = {acc_in, val_in}[12:9];
-	dlsw_result[3:1] = {acc_in, val_in}[7:5];
-	dlsw_result[0]   = {acc_in, val_in}[3];
+	dlsw_result[7:4] = message[12:9];
+	dlsw_result[3:1] = message[7:5];
+	dlsw_result[0]   = message[3];
 
-	xp4_result[7:4] = {acc_in, val_in}[15:12];
-	xp4_result[3:0] = {acc_in, val_in}[7:4];
+	xp4_result[7:4] = message[15:12];
+	xp4_result[3:0] = message[7:4];
 
-	xp2_result[7:6] = {acc_in, val_in}[15:14];
-	xp2_result[5:4] = {acc_in, val_in}[11:10];
-	xp2_result[3:2] = {acc_in, val_in}[7:6];
-	xp2_result[1:0] = {acc_in, val_in}[3:2];
+	xp2_result[7:6] = message[15:14];
+	xp2_result[5:4] = message[11:10];
+	xp2_result[3:2] = message[7:6];
+	xp2_result[1:0] = message[3:2];
 
-	xp1_result[7] = {acc_in, val_in}[15];
-	xp1_result[6] = {acc_in, val_in}[13];
-	xp1_result[5] = {acc_in, val_in}[11];
-	xp1_result[4] = {acc_in, val_in}[9];
-	xp1_result[3] = {acc_in, val_in}[7];
-	xp1_result[2] = {acc_in, val_in}[5];
-	xp1_result[1] = {acc_in, val_in}[3];
-	xp1_result[0] = {acc_in, val_in}[1];
+	xp1_result[7] = message[15];
+	xp1_result[6] = message[13];
+	xp1_result[5] = message[11];
+	xp1_result[4] = message[9];
+	xp1_result[3] = message[7];
+	xp1_result[2] = message[5];
+	xp1_result[1] = message[3];
+	xp1_result[0] = message[1];
 
 	// Simple test operations for now
 	result = acc_in;
