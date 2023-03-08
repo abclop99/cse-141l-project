@@ -25,6 +25,11 @@ bit  [15:0] score1, case1;
 // if you used any parameters, override them here
 top_level DUT(.clk, .req, .done);            // replace "proc" with the name of your top level module
 
+// Initialize instruction memory
+initial begin
+  $readmemb("src/machine_code/program_1.txt", DUT.ir1.core);
+end
+
 initial begin
   for(int i=0;i<15;i++)	begin
     d1_in[i] = $random>>4;        // create 15 messages	   '1    '0
