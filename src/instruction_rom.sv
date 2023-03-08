@@ -7,8 +7,8 @@ module instruction_rom #(parameter D=12)(
 
 	logic[8:0] core[2**D];
 	// load the program
-	initial
-		$readmemb("machine_code.txt",core);
+	//initial
+	//	$readmemb("machine_code.txt",core);
 
 	always_comb machine_code = core[address];
 

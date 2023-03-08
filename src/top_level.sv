@@ -50,7 +50,8 @@ control ctrl1 (
 	.reljump_enable(reljump_enable),
 	.absjump_enable(absjump_enable),
 	.acc_src(acc_src),
-	.alu_op(alu_op)
+	.alu_op(alu_op),
+	.done(done)
 );
 
 // Program counter

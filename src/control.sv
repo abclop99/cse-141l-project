@@ -41,7 +41,7 @@ always_comb begin
 		23: reljump_enable = 1;    // 23: rb
 		24: absjump_enable = 1;    // 24: ab
 
-		'1: done = 1;  // 31: done
+		31: done = 1;  // 31: done
 	endcase
 end
 
