@@ -15,7 +15,9 @@ always_comb begin : alu_logic
 	emsw_result[0]   = 'b0;
 
 	elsw_result[7:5] = val_in[3:1];
-	elsw_result[4:0] = 'b0;
+	elsw_result[4] = 'b0;
+	elsw_result[3] = val_in[0];
+	elsw_result[2:0] = 'b0;
 
 	dmsw_result[7:3] = 'b0;
 	dmsw_result[2:0] = message[15:13];
