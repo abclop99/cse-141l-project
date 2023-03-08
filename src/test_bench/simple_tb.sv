@@ -1,12 +1,12 @@
 // Simple test bench just to make sure it can run code
 module simple_tb();
 
-	bit clk, reset;
+	bit clk, req;
 	wire done;
 
 	top_level dut(
 		.clk,
-		.reset,
+		.req,
 		.done
 	);
 
@@ -18,9 +18,11 @@ module simple_tb();
 	initial begin
 		$readmemb("src/machine_code/simple_loop.txt", dut.ir1.core);
 
-		#10 reset = 1;
-		#10 reset = 0;
+		#20;
+		#10 req = 1;
+		#10 req = 0;
 		#10 wait(done);
+		#20;
 		$stop;
 	end
 

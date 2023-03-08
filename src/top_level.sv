@@ -1,7 +1,9 @@
 module top_level
 (
-	input         clk, reset, req,
-	output logic  done
+	input         clk,  // Clock input
+	              req,  // Sets PC to 0 and starts execution
+	output logic  done  // Indicates when execution is
+	                    // complete and stops execution
 );
 
 parameter PC_WIDTH            = 12,
@@ -17,6 +19,8 @@ wire    compare_enable,
         reljump_enable,
         absjump_enable;
 wire    acc_src;
+wire    pc_reset,
+        pc_enable;
 wire[ALU_COMMAND_WIDTH-1:0] alu_op;
 
 /* Datapaths */
@@ -43,6 +47,7 @@ wire[7:0] data_read, alu_out;
 // Control
 control ctrl1 (
 	.instruction(instruction),
+	.req(req),
 	.reg_write_enable(reg_write_enable),
 	.acc_write_enable(acc_write_enable),
 	.dat_write_enable(dat_write_enable),
@@ -51,13 +56,16 @@ control ctrl1 (
 	.absjump_enable(absjump_enable),
 	.acc_src(acc_src),
 	.alu_op(alu_op),
-	.done(done)
+	.done(done),
+	.pc_reset(pc_reset),
+	.pc_enable(pc_enable)
 );
 
 // Program counter
 program_counter #(.D(PC_WIDTH)) pc1 (
 	.clock(clk),
-	.reset(reset),
+	.reset(pc_reset),
+	.enable(pc_enable),
 	.pc_in(pc_in),
 	.pc_out(pc_out),
 	.pc_added(pc_added)
