@@ -67,7 +67,7 @@ add	i 0	# 27
 	### Match within byte; 4 tests
 
 	# Set inner loop index
-	loadv	i 4	# 28
+	loadv	i 0	# 28
 	storev	r 6
 	# NOP
 	add i 0
@@ -75,9 +75,12 @@ add	i 0	# 27
 
 	## Inner Loop: (32 >> 2 = 8 (can't branch in single instruction.))
 
-		# Test for pattern first time in byte
-		# Current byte is already loaded in acc
-		loadv	r 2
+		# Test for pattern in byte
+		loadv	r 2	# Load byte
+		sl	r 6	# Shift and mask byte
+		sr	i 3
+		sl	i 3
+		#
 		xor	r 4	#	XOR with bit pattern
 		beq	i 1	#	Skip skipping add if matches
 		rb	i 3	#		Skip adding to count
@@ -86,15 +89,16 @@ add	i 0	# 27
 		add	i 1
 		storev	r 1
 
-		# Decrement inner loop index; if !0, set&shift byte and loop
+		# increment inner loop index; if !5, set&shift byte and loop
 		loadv	r 6
-		sub	i 1
+		add	i 1
 		storev	r 6
-		beq	i 7	#	If end of loop, skip looping
+		xor	i 5
+		beq	i 4	#	If end of loop, skip looping
 		# shift current byte
-		loadv	r 2
-		sl	i 1
-		storev	r 2
+		#loadv	r 2
+		#sl	i 1
+		#storev	r 2
 		# ab to 8 << 2 = 32
 		loadv	i 1
 		sl	i 3
@@ -158,6 +162,8 @@ add	i 0	# 27
 		loadv	r 3	# Load and shift current byte
 		sl	i 7
 		or	r 0	# Combine with shifted next byte
+		sr	i 3	# Mask for comparison
+		sl	i 3
 		xor	r 4	# Compare with pattern
 		#
 		beq	i 1	# Skip skipping if match
@@ -178,6 +184,8 @@ add	i 0	# 27
 		loadv	r 3	# Load and shift current byte
 		sl	i 6
 		or	r 0	# Combine with shifted next byte
+		sr	i 3	# Mask for comparison
+		sl	i 3
 		xor	r 4	# Compare with pattern
 		#
 		beq	i 1	# Skip skipping if match
@@ -198,6 +206,8 @@ add	i 0	# 27
 		loadv	r 3	# Load and shift current byte
 		sl	i 5
 		or	r 0	# Combine with shifted next byte
+		sr	i 3	# Mask for comparison
+		sl	i 3
 		xor	r 4	# Compare with pattern
 		#
 		beq	i 1	# Skip skipping if match
@@ -218,6 +228,8 @@ add	i 0	# 27
 		loadv	r 3	# Load and shift current byte
 		sl	i 4
 		or	r 0	# Combine with shifted next byte
+		sr	i 3	# Mask for comparison
+		sl	i 3
 		xor	r 4	# Compare with pattern
 		#
 		beq	i 1	# Skip skipping if match
@@ -240,6 +252,10 @@ add	i 0	# 27
 	## Reset counter to 0
 	loadv	i 0
 	storev	r 1
+
+	## current <- next
+	loadv	r 3
+	storev	r 2
 
 	# Branch to beginning of loop
 	ab	i 7
