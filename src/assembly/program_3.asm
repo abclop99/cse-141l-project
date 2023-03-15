@@ -74,6 +74,7 @@ add	i 0	# 27
 	add i 0
 
 	## Inner Loop: (32 >> 2 = 8 (can't branch in single instruction.))
+	# 0, 1, 2, 3
 
 		# Test for pattern in byte
 		loadv	r 2	# Load byte
@@ -89,11 +90,11 @@ add	i 0	# 27
 		add	i 1
 		storev	r 1
 
-		# increment inner loop index; if !5, set&shift byte and loop
+		# increment inner loop index; if !4, set&shift byte and loop
 		loadv	r 6
 		add	i 1
 		storev	r 6
-		xor	i 5
+		xor	i 4
 		beq	i 4	#	If end of loop, skip looping
 		# shift current byte
 		#loadv	r 2
