@@ -19,6 +19,11 @@ logic[  7:0] mat_str[32];      // message string parsed into bytes
 // explicitly list ports if your names differ from test bench's
 top_level DUT(.clk, .req(req),.done(done));	               // replace "proc" with the name of your top level module
 
+// Initialize instruction memory
+initial begin
+  $readmemb("src/machine_code/program_3.txt", DUT.ir1.core);
+end
+
 initial begin
 // program 3
 // pattern we are looking for; experiment w/ various values
