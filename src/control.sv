@@ -38,11 +38,11 @@ always_comb begin
 	absjump_enable = 0;
 	acc_src = 1;
 	pc_reset = req;
-	pc_enable = enabled;
+	pc_enable = enabled && !req;
 	done_signal = 0;
 
 	// Set values based on instruction
-	if (enabled) begin
+	if (pc_enable) begin
 		case (alu_op)
 			// 0-16: ALU operations
 
