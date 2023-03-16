@@ -109,7 +109,7 @@ branching #(.D(PC_WIDTH)) br1 (
 // Data memory
 data_memory #( .SIZE(DATA_MEMORY_SIZE) ) dm1 (
 	.clock(clk),
-	.data_in(alu_out),
+	.data_in(acc_read),
 	.write_enable(dat_write_enable),
 	.address(reg_read),
 	.data_out(data_read)
