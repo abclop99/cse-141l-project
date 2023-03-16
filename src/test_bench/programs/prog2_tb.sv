@@ -34,6 +34,11 @@ bit  [15:0] score2, case2;
 // explicitly list ports if your names differ from test bench's
 top_level DUT(.clk, .req, .done);	 // replace "top_level" with the name of your top level module
 
+// Set instruction memory
+initial begin
+  $readmemb("src/machine_code/program_2.txt", DUT.ir1.core);
+end
+
 initial begin
 // generate parity from random 11-bit messages 
   for(int i=0; i<15; i++) begin
