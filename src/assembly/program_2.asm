@@ -7,7 +7,7 @@
 #
 # p1	p2	1	p4	2	3	4	p8	5	6	7	8	9	10	11
 #
-# - Let S8, S4, S2, S1, S2 be parity calculated from input
+# - Let S8, S4, S2, S1, S0 be parity calculated from input
 #
 # - For each message
 #	- Read message from data memory
