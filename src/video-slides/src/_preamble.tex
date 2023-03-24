@@ -1,0 +1,40 @@
+\documentclass{beamer}
+\usetheme{Madrid}
+\usefonttheme{serif}
+
+% For including images
+\usepackage{graphicx}
+% Multirow cells in tables
+\usepackage{multirow}
+% Code block
+\usepackage{listings, lstautogobble}
+
+% lst config
+\lstnewenvironment{code}[1][]{
+	\lstset{
+		basicstyle=\ttfamily,
+		autogobble=true, #1,
+		numbers=left
+	}
+}{}
+
+% Custom command alias
+\let\op\operatorname
+
+\title{CSE 141L Video Slides}
+\subtitle{Subtitle yay!}
+
+\author[Aaron Li] {Aaron Li; A15397198}
+
+\institute[UCSD]
+{
+	University of California, San Diego
+}
+
+\AtBeginSection[]
+{
+	\begin{frame}
+		\frametitle{Table of Contents}
+		\tableofcontents[currentsection]
+	\end{frame}
+}
