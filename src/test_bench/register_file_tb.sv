@@ -34,6 +34,16 @@ initial begin
                 clock = 0;
         end
 
+        // Test last written data immediately
+        $display("Testing last written data on next clock cycle");
+        write_enable = 0;
+        is_immediate = 0;
+        address = 2**pointer_width - 1;
+        #5;
+        clock = 1;
+        #5;
+        clock = 0;
+
         // Read data from register file
         $display("Testing register mode");
         is_immediate = 0;
