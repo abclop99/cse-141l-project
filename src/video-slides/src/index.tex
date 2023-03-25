@@ -89,10 +89,10 @@
 				loadv & 18 & $A \leftarrow val$ \\
 				storem & 19 & $\op{Mem}[val] \leftarrow A$ \\
 				storev & 20 & $val \leftarrow A$. Writes register; behavior when \verb|i == 0| is undefined \\ \hline
-				slt & 21 & \\
-				beq & 22 & \\
-				rb & 23 & \\
-				ab & 24 & \\ \hline
+				slt & 21 & \texttt{if (A < val) then} $A \leftarrow 1$ \texttt{else} $A \leftarrow 0$) \\
+				beq & 22 & \texttt{if (A == 0) then} relative jump by \texttt{val} instructions\\
+				rb & 23 & Relative jump by \texttt{val} instructions \\
+				ab & 24 & Absolute jump to \texttt{val << 2} \\ \hline
 				done & 31 & Sets the \verb|done| flag to indicate the program has finished \\
 				\hline
 			\end{tabular}
@@ -116,6 +116,27 @@
 			\includegraphics[angle=270, trim={7cm 1.5cm 7cm 1.5cm}, width=\textwidth]{block-diagram}
 			\caption{Full block diagram with control signals}
 		\end{figure}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{}
+
+		\begin{itemize}
+			\item Relatively simple interactions between modules makes the design simpler
+			\item Interesting modifications
+				\begin{itemize}
+					\item Register file has to support immediates
+				\end{itemize}
+			\item Custom modules
+				\begin{itemize}
+					\item All except for instruction memory and data memory (Still modified)
+					\item PC handles adding to keep logic contained and takes a reset signal
+					\item Register file supports using address as immediates
+					\item Accumulator is just a single-value register
+					\item Branching handles branching using input from the PC, \texttt{val}, accumulator, and control
+					\item ALU handles all ALU operations and passes through the accumulator by default
+				\end{itemize}
+		\end{itemize}
 	\end{frame}
 
 	\section{Explain Assembly}
@@ -202,13 +223,14 @@
 					\item Extract and set parity bits
 					\item Store output data
 				\end{itemize}
-			\item done
+			\item \texttt{done}
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}
 		\frametitle{Explain Assembly: Program 2}
 		\begin{itemize}
+			\item Based on Piazza Post @36, but modified to be simpler to implement
 			\item Let $S_8, S_4, S_2, S_1, S_2$ be parity calculated from input
 			\item for each message
 				\begin{itemize}
@@ -230,7 +252,7 @@
 							\item Store output
 						\end{itemize}
 				\end{itemize}
-			\item done
+			\item \texttt{done}
 		\end{itemize}
 	\end{frame}
 
@@ -246,13 +268,13 @@
 					\item Else
 						\begin{itemize}
 							\item Load next byte
-							\item Count occurences in byte boundary
+							\item Count occurences in byte boundary (unrolled loop)
 							\item Update counter in memory
 							\item Reset counter
 							\item current $\leftarrow$ next
 						\end{itemize}
 				\end{itemize}
-			\item done
+			\item \texttt{done}
 		\end{itemize}
 	\end{frame}
 
@@ -269,8 +291,10 @@
 			\item Compute expected output
 			\item Set data memory to input
 			\item Run program until \texttt{done} flag
-			\item Compare output from data memory to computed
+			\item Compare output from data memory to computed (manually for program 3)
 		\end{itemize}
+
+		Proves that the program running on the simulated processor has the same result that was calculated by the testbench.
 	\end{frame}
 
 	\begin{frame}
