@@ -3,3 +3,5 @@
 !src
 !src/**
 ~
+!*.mp4
+!README.txt
