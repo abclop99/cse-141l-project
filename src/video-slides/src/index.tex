@@ -145,9 +145,10 @@
 		\frametitle{Assembly Syntax}
 
 		\begin{itemize}
-			\item Example instruction:
+			\item Example instructions:
 				\begin{quote}
-					\texttt{add~~~~~i 1}
+					\texttt{add~~~~~i 1} \\
+					\texttt{xor~~~~~r 3}
 				\end{quote}
 			\item Amount of whitespace is ignored
 			\item Leading/trailing whitespace is ignored
@@ -163,7 +164,7 @@
 		\begin{itemize}
 			\item Obtain Data
 				\begin{itemize}
-					\item Small constants (0-7) can be loaded as immediates (\texttt{load i 7})
+					\item Small constants (0-7) can be loaded as immediates (\texttt{loadv i 7})
 					\item Larger constants must be assembled from smaller immediates using various instructions such as bit shifting and \texttt{or}.
 
 						Example for loading $30$:
@@ -173,11 +174,15 @@
 							or~~~~~~i 2 \\
 							}}
 						\end{quote}
+					\item Load data from data memory with \texttt{loadm} or a register/immediate with \texttt{loadv}
 				\end{itemize}
 			\item Manipulate Data
 				\begin{itemize}
-					\item Put one operand in accumulator
-					\item Put other operand in register or use immediate
+					\item Data loaded in accumulator
+					\item Use instructions on accumulator value
+						\begin{itemize}
+							\item Use register/immediates for other operand
+						\end{itemize}
 					\item Result is in the accumulator
 				\end{itemize}
 			\item Store results
@@ -274,7 +279,7 @@
 							\item current $\leftarrow$ next
 						\end{itemize}
 				\end{itemize}
-			\item \texttt{done}
+			%\item \texttt{done}
 		\end{itemize}
 	\end{frame}
 
